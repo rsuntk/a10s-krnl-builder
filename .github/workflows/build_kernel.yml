@@ -36,24 +36,6 @@ jobs:
         ref: ${{ github.event.inputs.BRANCH }}
         show-progress: false
         fetch-depth: 1
-  
-    - name: Telegram msg
-      if: github.event.inputs.UPLOAD_TO_TG == 'true' && github.event.inputs.BUILD_TARGET == 'kernel'
-      uses: cbrgm/telegram-github-action@v1
-      with:
-        to: ${{ secrets.CHAT_ID }}
-        token: ${{ secrets.BOT_TOKEN }}
-        disable-web-page-preview: true
-        parse-mode: html
-        message: |
-          @${{ github.actor }} triggered a kernel build!
-
-          <b>Start:</b> ${{ steps.rundate.outputs.REPO_DATE }}
-          <b>Target Binary:</b> ${{ github.event.inputs.TARGET_BINARY }}
-          <b>Device:</b> ${{ github.event.inputs.TARGET_DEVICE }}
-          <b>Branch:</b> ${{ github.event.inputs.BRANCH }}
-          <b>Workflows:</b> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          <b>Repository:</b> ${{ github.server_url }}/${{ github.repository }}
 
     - name: Prepare dependencies
       run: |
