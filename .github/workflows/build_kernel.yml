@@ -24,7 +24,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-#    environment: secureEnvironment
+    environment: secureEnvironment
     steps:
     - name: Get date
       id: rundate
