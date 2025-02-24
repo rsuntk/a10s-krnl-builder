@@ -107,6 +107,7 @@ jobs:
         Clang version: `clang -v 2>&1 | grep ' version ' | sed 's/[[:space:]]*$//'`
         Build: `echo $BUILD_START`
         Defconfig: `echo $DEFCONFIG`
+        KernelSU: `echo $KSU_VERSION (32bit)`
         SELinux: `echo $SELINUX_STATE` " >> buildDetails.txt
           
           echo "TITLE=Galaxy `echo $DEVICE_ID` Kernel" >> $GITHUB_ENV
