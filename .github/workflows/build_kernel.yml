@@ -4,7 +4,7 @@ on:
     inputs:
       BRANCH:
         description: Kernel branch
-        default: 'eleven'
+        default: 'rc3'
         required: true
       BUILD_TARGET:
         description: 'Build target'
@@ -47,14 +47,15 @@ jobs:
       run: |
         mkdir toolchains
         cd toolchains
-        curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s clang-11
+        curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s clang-12
         curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s androidcc-4.9
+        mv clang* clang
       working-directory: kernel_root
       
     - name: Build kernel
       id: buildKernel
       run: |
-        export PATH=$(pwd)/toolchains/clang-11/bin:$PATH
+        export PATH=$(pwd)/toolchains/clang/bin:$PATH
         export CROSS_COMPILE=$(pwd)/toolchains/androidcc-4.9/bin/aarch64-linux-android-
         export CLANG_TRIPLE=aarch64-linux-gnu-
         export KBUILD_BUILD_USER="rsuntk"
@@ -66,6 +67,7 @@ jobs:
         export DEVICE="A107F"
         export DEVICE_ID="A10s"
         export TARGET_PRODUCT=a10s
+        export LLVM=1
 
         BUILD_TARGET="${{ github.event.inputs.BUILD_TARGET }}"
 
@@ -158,7 +160,7 @@ jobs:
         # Start stripping
         for file in $LIST; do
           echo -e "- Stripping `basename $file`"
-          $(pwd)/toolchains/clang-12/bin/llvm-strip "$file" --strip-unneeded
+          $(pwd)/toolchains/clang/bin/llvm-strip "$file" --strip-unneeded
         done
         mv ../kernel_object_tmp/*.ko $(pwd)/kernel_object/
       working-directory: kernel_root
