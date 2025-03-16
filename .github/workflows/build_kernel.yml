@@ -4,7 +4,7 @@ on:
     inputs:
       BRANCH:
         description: Kernel branch
-        default: 'rc3'
+        default: 'eleven0'
         required: true
       BUILD_TARGET:
         description: 'Build target'
@@ -32,7 +32,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         path: kernel_root
-        repository: rsuntk/krenol-a10s-r
+        repository: rsuntkOrgs/kernel_samsung_a10s-r
         ref: ${{ github.event.inputs.BRANCH }}
         show-progress: false
         fetch-depth: 1
