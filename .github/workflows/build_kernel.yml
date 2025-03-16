@@ -68,6 +68,7 @@ jobs:
         export DEVICE_ID="A10s"
         export TARGET_PRODUCT=a10s
         export LLVM=1
+        export LLVM_IAS=1
 
         BUILD_TARGET="${{ github.event.inputs.BUILD_TARGET }}"
 
