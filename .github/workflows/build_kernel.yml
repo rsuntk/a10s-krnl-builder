@@ -4,7 +4,7 @@ on:
     inputs:
       BRANCH:
         description: Kernel branch
-        default: 'eleven0'
+        default: 'android-4.19-stable'
         required: true
       BUILD_TARGET:
         description: 'Build target'
@@ -32,7 +32,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         path: kernel_root
-        repository: rsuntkOrgs/kernel_samsung_a10s-r
+        repository: rsuntk/a10s-krenol-r
         ref: ${{ github.event.inputs.BRANCH }}
         show-progress: false
         fetch-depth: 1
@@ -47,7 +47,7 @@ jobs:
       run: |
         mkdir toolchains
         cd toolchains
-        curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s clang-11
+        curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s clang-12
         curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s androidcc-4.9
         mv clang* clang
       working-directory: kernel_root
@@ -67,7 +67,8 @@ jobs:
         export DEVICE="A107F"
         export DEVICE_ID="A10s"
         export TARGET_PRODUCT=a10s
-
+        export LLVM=1
+        
         BUILD_TARGET="${{ github.event.inputs.BUILD_TARGET }}"
 
         if [[ "$BUILD_TARGET" != "defconfig" ]]; then
