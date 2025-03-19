@@ -50,7 +50,7 @@ jobs:
       run: |
         mkdir toolchains
         cd toolchains
-        if [[ "${{ github.event.inputs.CLANG_NEW }}" ]]; then
+        if [[ "${{ github.event.inputs.CLANG_NEW }}" = "true" ]]; then
           URL="https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-u-beta-1-gpl/clang-r458507.tar.gz"
           echo "INFO: Fetching newer clang"
           wget -q -O clang.tar.gz $URL
