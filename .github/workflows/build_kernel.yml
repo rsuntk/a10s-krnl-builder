@@ -58,9 +58,9 @@ jobs:
           cd ../..
         else
           curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s clang-12
+          mv clang* clang
         fi
         curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s androidcc-4.9
-        mv clang* clang
       working-directory: kernel_root
       
     - name: Build kernel
