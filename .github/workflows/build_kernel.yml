@@ -20,6 +20,12 @@ on:
       UPLOAD_TO_TG:
         description: Upload to Telegram
         type: boolean
+      LLVM:
+        description: Build with LLVM=1
+        type: boolean
+      IAS:
+        description: Build with LLVM_IAS=1 (must turn on LLVM=1!!)
+        type: boolean
         
 jobs:
   build:
@@ -67,6 +73,13 @@ jobs:
         export DEVICE="A107F"
         export DEVICE_ID="A10s"
         export TARGET_PRODUCT=a10s
+
+        if [[ "${{ github.event.inputs.LLVM }}" = "true" ]]; then
+          export LLVM=1
+          if [[ "${{ github.event.inputs.IAS }}" = "true" ]]; then
+            export LLVM_IAS=1
+          fi
+        fi
         
         BUILD_TARGET="${{ github.event.inputs.BUILD_TARGET }}"
 
