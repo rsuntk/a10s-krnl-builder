@@ -20,11 +20,8 @@ on:
       UPLOAD_TO_TG:
         description: Upload to Telegram
         type: boolean
-      LLVM:
-        description: Build with LLVM=1
-        type: boolean
-      IAS:
-        description: Build with LLVM_IAS=1 (must turn on LLVM=1!!)
+      CLANG_NEW:
+        description: Use newer clang
         type: boolean
         
 jobs:
@@ -53,7 +50,15 @@ jobs:
       run: |
         mkdir toolchains
         cd toolchains
-        curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s clang-12
+        if [[ "${{ github.event.inputs.CLANG_NEW }}" ]]; then
+          URL="https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-u-beta-1-gpl/clang-r458507.tar.gz"
+          echo "INFO: Fetching newer clang"
+          wget -q -O clang.tar.gz $URL
+          mkdir clang && mv *.gz && cd clang && tar -xf *.gz
+          cd ../..
+        else
+          curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s clang-12
+        fi
         curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s androidcc-4.9
         mv clang* clang
       working-directory: kernel_root
@@ -73,13 +78,8 @@ jobs:
         export DEVICE="A107F"
         export DEVICE_ID="A10s"
         export TARGET_PRODUCT=a10s
-
-        if [[ "${{ github.event.inputs.LLVM }}" = "true" ]]; then
-          export LLVM=1
-          if [[ "${{ github.event.inputs.IAS }}" = "true" ]]; then
-            export LLVM_IAS=1
-          fi
-        fi
+        export LLVM=1
+        export LLVM_IAS=1
         
         BUILD_TARGET="${{ github.event.inputs.BUILD_TARGET }}"
 
