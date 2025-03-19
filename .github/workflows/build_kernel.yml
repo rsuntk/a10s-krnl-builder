@@ -54,7 +54,7 @@ jobs:
           URL="https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-u-beta-1-gpl/clang-r458507.tar.gz"
           echo "INFO: Fetching newer clang"
           wget -q -O clang.tar.gz $URL
-          mkdir clang && mv *.gz && cd clang && tar -xf *.gz
+          mkdir clang && mv *.gz clang && cd clang && tar -xf *.gz
           cd ../..
         else
           curl -LSs "https://raw.githubusercontent.com/rsuntk/toolchains/refs/heads/README/clone.sh" | bash -s clang-12
