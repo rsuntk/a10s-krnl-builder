@@ -35,7 +35,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         path: kernel_root
-        repository: rsuntk/a10s-krenol-r
+        repository: rsuntk/android_kernel_samsung_mt6762-4.19
         ref: ${{ github.event.inputs.BRANCH }}
         show-progress: false
         fetch-depth: 1
