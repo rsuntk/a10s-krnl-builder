@@ -80,7 +80,7 @@ jobs:
         export TARGET_PRODUCT=a10s
         export LLVM=1
         export LLVM_IAS=1
-        export DEFAULT_KSU_BRANCH="compat_ptr"
+        export DEFAULT_KSU_BRANCH="dynamic_ptr"
         BUILD_TARGET="${{ github.event.inputs.BUILD_TARGET }}"
 
         if [[ "$BUILD_TARGET" != "defconfig" ]]; then
