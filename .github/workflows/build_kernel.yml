@@ -72,6 +72,7 @@ jobs:
         export KBUILD_BUILD_USER="rsuntk"
         export KBUILD_BUILD_HOST="rsuntkOrgs"
         export BUILD_START=`date`
+        export DEFAULT_KSU_BRANCH="sucompat"
         export SELINUX_STATE="Enforcing"
         export IS_CI=true
         export DEFCONFIG="rsuntk_defconfig"
